@@ -18,13 +18,17 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { OnlyAuth, OnlyUnAuth } from '../ProtectedRoute/ProtectedRoute';
 import { fetchIngredients } from '../../services/slices/ingredientsSlice';
 import { useSelector, useDispatch } from '../../services/store';
-import { fetchGetUser } from '../../services/slices/profileSlice';
+import {
+  fetchGetUser,
+  fetchUpdateUser
+} from '../../services/slices/profileSlice';
+import { getCookie } from '../../utils/cookie';
 
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchIngredients());
-    dispatch(fetchGetUser());
+    if (getCookie('accessToken')) dispatch(fetchGetUser());
   }, [dispatch]);
   const navigate = useNavigate();
 

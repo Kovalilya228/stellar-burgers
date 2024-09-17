@@ -22,7 +22,6 @@ interface ProfileInitialState {
   email: string;
   name: string;
   message: string;
-  accessToken: string | null;
   isEmailForResetSent: boolean;
 }
 
@@ -36,7 +35,6 @@ const profileSlice = createSlice({
     email: '',
     name: '',
     message: '',
-    accessToken: null,
     isEmailForResetSent: false
   } as ProfileInitialState,
   reducers: {},
@@ -50,10 +48,7 @@ const profileSlice = createSlice({
         state.data = action.payload.user;
         state.isLogin = true;
         state.fetchProfilePending = false;
-        state.accessToken = action.payload.accessToken;
         localStorage.setItem('refreshToken', action.payload.refreshToken);
-        setCookie('accessToken', action.payload.accessToken);
-        console.log('success');
       })
       .addCase(fetchRegister.rejected, (state, action) => {
         state.fetchProfilePending = false;
@@ -69,10 +64,7 @@ const profileSlice = createSlice({
         state.data = action.payload.user;
         state.isLogin = true;
         state.fetchProfilePending = false;
-        state.accessToken = action.payload.accessToken;
         localStorage.setItem('refreshToken', action.payload.refreshToken);
-        setCookie('accessToken', action.payload.accessToken);
-        console.log(localStorage.getItem('refreshToken'));
       })
       .addCase(fetchLogin.rejected, (state, action) => {
         state.fetchProfilePending = false;
@@ -88,10 +80,7 @@ const profileSlice = createSlice({
         state.data = null;
         state.isLogin = false;
         state.fetchProfilePending = false;
-        state.accessToken = '';
         localStorage.removeItem('refreshToken');
-        deleteCookie('accessToken');
-        console.log('success');
       })
       .addCase(fetchLogout.rejected, (state, action) => {
         state.fetchProfilePending = false;
@@ -107,8 +96,6 @@ const profileSlice = createSlice({
         state.data = action.payload.user;
         state.fetchProfilePending = false;
         state.isLogin = true;
-        state.accessToken = getCookie('accessToken') || null;
-        console.log('success');
       })
       .addCase(fetchGetUser.rejected, (state, action) => {
         state.fetchProfilePending = false;
@@ -123,7 +110,6 @@ const profileSlice = createSlice({
       .addCase(fetchUpdateUser.fulfilled, (state, action) => {
         state.data = action.payload.user;
         state.fetchProfilePending = false;
-        console.log('success');
       })
       .addCase(fetchUpdateUser.rejected, (state, action) => {
         state.fetchProfilePending = false;
@@ -138,7 +124,6 @@ const profileSlice = createSlice({
       .addCase(fetchForgotPassword.fulfilled, (state, action) => {
         state.isEmailForResetSent = true;
         state.fetchProfilePending = false;
-        console.log('success');
       })
       .addCase(fetchForgotPassword.rejected, (state, action) => {
         state.fetchProfilePending = false;
@@ -153,7 +138,6 @@ const profileSlice = createSlice({
       .addCase(fetchResetPassword.fulfilled, (state, action) => {
         state.isEmailForResetSent = false;
         state.fetchProfilePending = false;
-        console.log('success');
       })
       .addCase(fetchResetPassword.rejected, (state, action) => {
         state.fetchProfilePending = false;
@@ -168,6 +152,7 @@ export const fetchRegister = createAsyncThunk(
   async (data: TRegisterData, thunkApi) => {
     try {
       const res = await registerUserApi(data);
+      setCookie('accessToken', res.accessToken);
       return res;
     } catch (e) {
       return thunkApi.rejectWithValue(e);
@@ -180,6 +165,7 @@ export const fetchLogin = createAsyncThunk(
   async (data: TLoginData, thunkApi) => {
     try {
       const res = await loginUserApi(data);
+      setCookie('accessToken', res.accessToken);
       return res;
     } catch (e) {
       return thunkApi.rejectWithValue(e);
@@ -240,6 +226,7 @@ export const fetchLogout = createAsyncThunk(
   async (_, thunkApi) => {
     try {
       const res = await logoutApi();
+      deleteCookie('accessToken');
       return res;
     } catch (e) {
       return thunkApi.rejectWithValue(e);

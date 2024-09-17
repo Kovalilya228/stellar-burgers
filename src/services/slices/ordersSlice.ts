@@ -59,12 +59,15 @@ const ordersSlice = createSlice({
       .addCase(fetchOrderBurger.pending, (state) => {
         state.fetchOrdersPending = true;
         state.orderRequest = true;
+        console.log('request was sent');
       })
       .addCase(
         fetchOrderBurger.fulfilled,
         (state, action: PayloadAction<{ order: TOrder; name: string }>) => {
           state.fetchOrdersPending = false;
           state.orderBurger = action.payload;
+          state.orderRequest = false;
+          console.log('wait for burger');
         }
       )
       .addCase(fetchOrderBurger.rejected, (state, action) => {
