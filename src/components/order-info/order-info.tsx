@@ -5,7 +5,7 @@ import { TIngredient } from '@utils-types';
 
 import { useSelector, useDispatch } from '../../services/store';
 import { useParams } from 'react-router-dom';
-import { fetchOrderByNumber } from '../../services/slices/ordersSlice';
+import { fetchOrderByNumber } from '../../services/slices/ordersSlice/ordersSlice';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams();

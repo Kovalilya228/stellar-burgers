@@ -1,7 +1,7 @@
 import { FC, SyntheticEvent, useState } from 'react';
 import { LoginUI } from '@ui-pages';
 import { useDispatch, useSelector } from '../../services/store';
-import { fetchLogin } from '../../services/slices/profileSlice';
+import { fetchLogin } from '../../services/slices/profileSlice/profileSlice';
 import { Preloader } from '@ui';
 import { Navigate } from 'react-router-dom';
 

@@ -4,7 +4,7 @@ import { TOrder } from '@utils-types';
 import { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from '../../services/store';
 
-import { fetchFeeds } from '../../services/slices/feedsSlice';
+import { fetchFeeds } from '../../services/slices/feedsSlice/feedsSlice';
 
 export const Feed: FC = () => {
   const dispatch = useDispatch();

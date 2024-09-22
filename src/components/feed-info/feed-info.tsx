@@ -4,7 +4,7 @@ import { TOrder } from '@utils-types';
 import { FeedInfoUI } from '../ui/feed-info';
 
 import { useSelector, useDispatch } from '../../services/store';
-import { fetchOrders } from '../../services/slices/ordersSlice';
+import { fetchOrders } from '../../services/slices/ordersSlice/ordersSlice';
 
 const getOrders = (orders: TOrder[], status: string): number[] =>
   orders

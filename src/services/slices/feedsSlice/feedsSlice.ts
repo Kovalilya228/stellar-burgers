@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
-import { getFeedsApi } from '@api';
-import { TOrder } from '@utils-types';
+import { getFeedsApi } from '../../../utils/burger-api';
+import { TOrder } from '../../../utils/types';
 
 interface FeedsInitialState {
   orders: TOrder[];

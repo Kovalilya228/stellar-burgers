@@ -3,7 +3,7 @@ import { BurgerConstructorElementUI } from '@ui';
 import { BurgerConstructorElementProps } from './type';
 
 import { useSelector, useDispatch } from '../../services/store';
-import { constructorActions } from '../../services/slices/constructorSlice';
+import { constructorActions } from '../../services/slices/constructorSlice/constructorSlice';
 
 export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(
   ({ ingredient, index, totalItems }) => {

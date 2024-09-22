@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
-import { getOrdersApi, getOrderByNumberApi, orderBurgerApi } from '@api';
-import { TOrder } from '@utils-types';
+import { getOrdersApi, getOrderByNumberApi, orderBurgerApi } from '../../../utils/burger-api';
+import { TOrder } from '../../../utils/types';
 
 interface OrdersInitialState {
   orders: TOrder[];

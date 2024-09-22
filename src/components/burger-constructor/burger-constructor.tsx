@@ -3,8 +3,8 @@ import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useSelector, useDispatch } from '../../services/store';
 
-import { fetchOrderBurger } from '../../services/slices/ordersSlice';
-import { constructorActions } from '../../services/slices/constructorSlice';
+import { fetchOrderBurger } from '../../services/slices/ordersSlice/ordersSlice';
+import { constructorActions } from '../../services/slices/constructorSlice/constructorSlice';
 import { useNavigate } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
 
@@ -29,6 +29,8 @@ export const BurgerConstructor: FC = () => {
     (store) => store.burgerConstructor.orderIngredients
   );
 
+  const orderBurger = useSelector((store) => store.orders.orderBurger?.order);
+
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
     isLogin ? dispatch(fetchOrderBurger(orderIngredients)) : navigate('/login');
@@ -36,10 +38,12 @@ export const BurgerConstructor: FC = () => {
 
   const closeOrderModal = () => {
     dispatch(constructorActions.clearBurgerConstructor());
+    dispatch(constructorActions.setOrderModalData(null));
   };
 
   useEffect(() => {
     orderRequest && dispatch(constructorActions.clearBurgerConstructor());
+    dispatch(constructorActions.setOrderModalData(orderBurger || null));
   }, [orderRequest]);
 
   const price = useMemo(

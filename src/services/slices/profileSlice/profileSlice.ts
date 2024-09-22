@@ -10,9 +10,9 @@ import {
   updateUserApi,
   forgotPasswordApi,
   resetPasswordApi
-} from '../../utils/burger-api';
-import { setCookie, deleteCookie, getCookie } from '../../utils/cookie';
-import { TUser } from '../../utils/types';
+} from '../../../utils/burger-api';
+import { setCookie, deleteCookie, getCookie } from '../../../utils/cookie';
+import { TUser } from '../../../utils/types';
 
 interface ProfileInitialState {
   data: TUser | null;
@@ -48,7 +48,6 @@ const profileSlice = createSlice({
         state.data = action.payload.user;
         state.isLogin = true;
         state.fetchProfilePending = false;
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
       })
       .addCase(fetchRegister.rejected, (state, action) => {
         state.fetchProfilePending = false;
@@ -64,7 +63,6 @@ const profileSlice = createSlice({
         state.data = action.payload.user;
         state.isLogin = true;
         state.fetchProfilePending = false;
-        localStorage.setItem('refreshToken', action.payload.refreshToken);
       })
       .addCase(fetchLogin.rejected, (state, action) => {
         state.fetchProfilePending = false;
@@ -80,7 +78,6 @@ const profileSlice = createSlice({
         state.data = null;
         state.isLogin = false;
         state.fetchProfilePending = false;
-        localStorage.removeItem('refreshToken');
       })
       .addCase(fetchLogout.rejected, (state, action) => {
         state.fetchProfilePending = false;
@@ -153,6 +150,7 @@ export const fetchRegister = createAsyncThunk(
     try {
       const res = await registerUserApi(data);
       setCookie('accessToken', res.accessToken);
+      localStorage.setItem('refreshToken', res.refreshToken);
       return res;
     } catch (e) {
       return thunkApi.rejectWithValue(e);
@@ -166,6 +164,7 @@ export const fetchLogin = createAsyncThunk(
     try {
       const res = await loginUserApi(data);
       setCookie('accessToken', res.accessToken);
+      localStorage.setItem('refreshToken', res.refreshToken);
       return res;
     } catch (e) {
       return thunkApi.rejectWithValue(e);
@@ -227,6 +226,7 @@ export const fetchLogout = createAsyncThunk(
     try {
       const res = await logoutApi();
       deleteCookie('accessToken');
+      localStorage.removeItem('refreshToken');
       return res;
     } catch (e) {
       return thunkApi.rejectWithValue(e);

@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { BurgerIngredientUI } from '@ui';
 import { TBurgerIngredientProps } from './type';
-import { constructorActions } from '../../services/slices/constructorSlice';
+import { constructorActions } from '../../services/slices/constructorSlice/constructorSlice';
 import { useDispatch, useSelector } from '../../services/store';
 
 export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(

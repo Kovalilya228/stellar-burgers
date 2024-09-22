@@ -1,9 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import ingredientsSlice from './slices/ingredientsSlice';
-import constructorSlice from './slices/constructorSlice';
-import feedsSlice from './slices/feedsSlice';
-import profileSlice from './slices/profileSlice';
-import ordersSlice from './slices/ordersSlice';
+import ingredientsSlice from './slices/ingredientsSlice/ingredientsSlice';
+import constructorSlice from './slices/constructorSlice/constructorSlice';
+import feedsSlice from './slices/feedsSlice/feedsSlice';
+import profileSlice from './slices/profileSlice/profileSlice';
+import ordersSlice from './slices/ordersSlice/ordersSlice';
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsSlice,

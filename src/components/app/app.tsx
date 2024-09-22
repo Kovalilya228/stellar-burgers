@@ -16,12 +16,12 @@ import { useEffect } from 'react';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { OnlyAuth, OnlyUnAuth } from '../ProtectedRoute/ProtectedRoute';
-import { fetchIngredients } from '../../services/slices/ingredientsSlice';
+import { fetchIngredients } from '../../services/slices/ingredientsSlice/ingredientsSlice';
 import { useSelector, useDispatch } from '../../services/store';
 import {
   fetchGetUser,
   fetchUpdateUser
-} from '../../services/slices/profileSlice';
+} from '../../services/slices/profileSlice/profileSlice';
 import { getCookie } from '../../utils/cookie';
 
 const App = () => {
