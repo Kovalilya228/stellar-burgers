@@ -8,12 +8,14 @@ interface IngredientsInitialState {
   fetchIngredientsPending: boolean;
 }
 
+export const ingredientsInitialState: IngredientsInitialState = {
+  ingredients: [],
+  fetchIngredientsPending: false
+};
+
 const ingredientsSlice = createSlice({
   name: 'ingredients',
-  initialState: {
-    ingredients: [],
-    fetchIngredientsPending: false
-  } as IngredientsInitialState,
+  initialState: ingredientsInitialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

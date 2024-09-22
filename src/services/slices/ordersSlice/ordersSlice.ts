@@ -1,6 +1,10 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
-import { getOrdersApi, getOrderByNumberApi, orderBurgerApi } from '../../../utils/burger-api';
+import {
+  getOrdersApi,
+  getOrderByNumberApi,
+  orderBurgerApi
+} from '../../../utils/burger-api';
 import { TOrder } from '../../../utils/types';
 
 interface OrdersInitialState {
@@ -14,15 +18,17 @@ interface OrdersInitialState {
   orderRequest: boolean;
 }
 
+export const ordersInitialState: OrdersInitialState = {
+  orders: [],
+  fetchOrdersPending: false,
+  orderByNumber: null,
+  orderBurger: null,
+  orderRequest: false
+};
+
 const ordersSlice = createSlice({
   name: 'orders',
-  initialState: {
-    orders: [],
-    fetchOrdersPending: false,
-    orderByNumber: null,
-    orderBurger: null,
-    orderRequest: false
-  } as OrdersInitialState,
+  initialState: ordersInitialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

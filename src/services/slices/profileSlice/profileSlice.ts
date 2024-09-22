@@ -25,18 +25,20 @@ interface ProfileInitialState {
   isEmailForResetSent: boolean;
 }
 
+export const profileInitialState: ProfileInitialState = {
+  data: null,
+  fetchProfilePending: false,
+  error: '',
+  isLogin: false,
+  email: '',
+  name: '',
+  message: '',
+  isEmailForResetSent: false
+};
+
 const profileSlice = createSlice({
   name: 'profile',
-  initialState: {
-    data: null,
-    fetchProfilePending: false,
-    error: '',
-    isLogin: false,
-    email: '',
-    name: '',
-    message: '',
-    isEmailForResetSent: false
-  } as ProfileInitialState,
+  initialState: profileInitialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

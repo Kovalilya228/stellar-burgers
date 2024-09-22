@@ -10,14 +10,16 @@ interface FeedsInitialState {
   totalToday: number;
 }
 
+export const feedsInitialState: FeedsInitialState = {
+  orders: [],
+  fetchFeedsPending: false,
+  total: 0,
+  totalToday: 0
+};
+
 const feedsSlice = createSlice({
   name: 'feeds',
-  initialState: {
-    orders: [],
-    fetchFeedsPending: false,
-    total: 0,
-    totalToday: 0
-  } as FeedsInitialState,
+  initialState: feedsInitialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

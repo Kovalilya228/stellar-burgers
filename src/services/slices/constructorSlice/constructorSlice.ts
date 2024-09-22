@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { TConstructorIngredient, TIngredient, TOrder } from '../../../utils/types';
+import {
+  TConstructorIngredient,
+  TIngredient,
+  TOrder
+} from '../../../utils/types';
 import { v4 as uuidv4 } from 'uuid';
 
 interface IConstructorInitialState {
@@ -14,7 +18,7 @@ interface IConstructorInitialState {
   orderIngredients: string[];
 }
 
-const constructorInitialState: IConstructorInitialState = {
+export const constructorInitialState: IConstructorInitialState = {
   constructorItems: {
     bun: {
       price: 0,

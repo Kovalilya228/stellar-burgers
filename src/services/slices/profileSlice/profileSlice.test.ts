@@ -5,20 +5,17 @@ import profileReducer, {
   fetchGetUser,
   fetchUpdateUser,
   fetchForgotPassword,
-  fetchResetPassword
+  fetchResetPassword,
+  profileInitialState as initialState
 } from './profileSlice';
 
 describe('profile slice', () => {
-  const initialState = {
-    data: null,
-    fetchProfilePending: false,
-    error: '',
-    isLogin: false,
-    email: '',
-    name: '',
-    message: '',
-    isEmailForResetSent: false
+  const user = {
+    id: 1,
+    name: 'John Doe'
   };
+
+  const refreshToken = 'token';
 
   it('should handle fetchRegister.pending', () => {
     const action = { type: fetchRegister.pending.type };
@@ -31,13 +28,13 @@ describe('profile slice', () => {
   it('should handle fetchRegister.fulfilled', () => {
     const action = {
       type: fetchRegister.fulfilled.type,
-      payload: { user: { id: 1, name: 'John Doe' }, refreshToken: 'token' }
+      payload: { user, refreshToken }
     };
     const state = profileReducer(initialState, action);
 
-    expect(state.data).toEqual({ id: 1, name: 'John Doe' });
+    expect(state.data).toEqual(user);
     expect(state.isLogin).toBe(true);
-    expect(state.fetchProfilePending).toBe(false);;
+    expect(state.fetchProfilePending).toBe(false);
   });
 
   it('should handle fetchRegister.rejected', () => {
@@ -59,11 +56,11 @@ describe('profile slice', () => {
   it('should handle fetchLogin.fulfilled', () => {
     const action = {
       type: fetchLogin.fulfilled.type,
-      payload: { user: { id: 1, name: 'John Doe' }, refreshToken: 'token' }
+      payload: { user, refreshToken }
     };
     const state = profileReducer(initialState, action);
 
-    expect(state.data).toEqual({ id: 1, name: 'John Doe' });
+    expect(state.data).toEqual(user);
     expect(state.isLogin).toBe(true);
     expect(state.fetchProfilePending).toBe(false);
   });
@@ -112,11 +109,11 @@ describe('profile slice', () => {
   it('should handle fetchGetUser.fulfilled', () => {
     const action = {
       type: fetchGetUser.fulfilled.type,
-      payload: { user: { id: 1, name: 'John Doe' } }
+      payload: { user }
     };
     const state = profileReducer(initialState, action);
 
-    expect(state.data).toEqual({ id: 1, name: 'John Doe' });
+    expect(state.data).toEqual(user);
     expect(state.fetchProfilePending).toBe(false);
     expect(state.isLogin).toBe(true);
   });
@@ -140,11 +137,11 @@ describe('profile slice', () => {
   it('should handle fetchUpdateUser.fulfilled', () => {
     const action = {
       type: fetchUpdateUser.fulfilled.type,
-      payload: { user: { id: 1, name: 'John Doe' } }
+      payload: { user }
     };
     const state = profileReducer(initialState, action);
 
-    expect(state.data).toEqual({ id: 1, name: 'John Doe' });
+    expect(state.data).toEqual(user);
     expect(state.fetchProfilePending).toBe(false);
   });
 
@@ -173,7 +170,10 @@ describe('profile slice', () => {
   });
 
   it('should handle fetchForgotPassword.rejected', () => {
-    const action = { type: fetchForgotPassword.rejected.type, payload: 'Error' };
+    const action = {
+      type: fetchForgotPassword.rejected.type,
+      payload: 'Error'
+    };
     const state = profileReducer(initialState, action);
 
     expect(state.fetchProfilePending).toBe(false);

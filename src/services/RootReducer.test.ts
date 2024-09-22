@@ -4,7 +4,7 @@ import { rootReducer } from './RootReducer';
 describe('rootReducer', () => {
   it('should initialize the root state correctly', () => {
     const store = configureStore({
-      reducer: rootReducer,
+      reducer: rootReducer
     });
     const state = store.getState();
 
